@@ -1,7 +1,11 @@
 .pointer{
     cursor: pointer;
 }
-.responsiveY{
-    height: 300px;
+.responsiveY-min-300{
+    min-height: 300px;
+    overflow-y: scroll;
+}
+.responsiveY-max-300{
+    max-height: 300px;
     overflow-y: scroll;
 }

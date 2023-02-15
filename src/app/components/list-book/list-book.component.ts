@@ -9,11 +9,9 @@ import { BookService } from 'src/app/servicios/book.service';
 })
 export class ListBookComponent implements OnInit {
 
-  @Input() listBook!: Book[];
+  @Input() _listBook!: Book[];
   @Output() _deleteBook = new EventEmitter<Book>();
   @Output() _updateBook = new EventEmitter<Book>();
-
-
 
   constructor(
     private bookService: BookService
@@ -27,7 +25,9 @@ export class ListBookComponent implements OnInit {
     this._deleteBook.emit(book);
   }
   updateBook(book: Book){
-    this._updateBook.emit(book);
+    this.bookService.selected$.next(book);
   }
-
+  ngOnDestroy(){
+    this.bookService.selected$.unsubscribe();
+  }
 }

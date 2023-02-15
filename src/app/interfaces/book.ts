@@ -3,6 +3,7 @@ export interface Book {
     titulo: string;
     autor: string;
     image: File;
-    url_libro?: string;
-    image_id?: string;
+    url_libro: string;
+    image_id: string;
+    isUpdate: boolean;
 }

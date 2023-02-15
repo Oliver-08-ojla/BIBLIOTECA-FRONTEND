@@ -9,7 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FilterNamePipe } from '../pipes/filter-name.pipe';
 
 
 @NgModule({
@@ -26,6 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     PagesRoutingModule,
     ComponentsModule,
     ReactiveFormsModule,
+    FormsModule,
+    FilterNamePipe
   ]
 })
 export class PagesModule { }

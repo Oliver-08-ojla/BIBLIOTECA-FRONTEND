@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Book } from 'src/app/interfaces/book';
 import { BookService } from 'src/app/servicios/book.service';
 import { NotificationsService } from 'src/app/servicios/notifications.service';
@@ -11,54 +12,105 @@ import { NotificationsService } from 'src/app/servicios/notifications.service';
 export class BooksComponent implements OnInit {
 
 
-  listBook: Book [] = [];
+  listBook: Book[] = [];
+  fileSelect: any;
+  image!: File;
+  formBook: FormGroup;
   isLoad: boolean = false;
-  bookSelectd!: Book;
-  
-  constructor(
-    private bookService: BookService,
-    private notiService: NotificationsService
-  ) { }
+  isEdit: boolean = false;
+  nombreFilter: any;
 
-  ngOnInit(): void {
-    this.getBook();
+  constructor(
+    private fb: FormBuilder,
+    private notiService: NotificationsService,
+    private bookService: BookService
+  ) {
+    this.formBook = this.inititalForm();
   }
-  getBook(){
-    this.bookService.getBook().subscribe({
-      next:(res) => this.listBook = res,
-      error:(err) => console.log(err)
+  ngOnInit(): void {
+    this.getListBook();
+  }
+
+  inititalForm(){
+    return this.fb.group({
+      id:[],
+      titulo: ['', Validators.required],
+      autor: ['', Validators.required],
     });
   }
-  registerBook(book: Book){
-    if(!book) return 
-    this.listBook.push(book);
+
+  obtenerImagen(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = (target.files as FileList)[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      this.fileSelect = reader.result;
+    };
+    this.image = file;
+  }
+
+  registerBook(){
+    if(!this.formBook.valid) return
     this.isLoad = true;
-    this.bookService.registerBook(book).subscribe({
+    if(this.isEdit){
+      this.updateBook({...this.formBook.value,image: this.image, url_libro: this.fileSelect });
+    }else{
+      this.listBook.push({...this.formBook.value,url_libro: this.fileSelect});
+      this.bookService.registerBook({...this.formBook.value, image: this.image}).subscribe({
+        next:(res) => {
+          this.notiService.showAlertSuccess(res.message);
+          this.isLoad = false;
+          this.formBook.reset();
+        },
+        error:(err) => {
+          this.notiService.showAlertError(err.message);
+          this.isLoad = false;
+        }
+      });
+    }
+  }
+  getListBook(){
+    this.bookService.getBook().subscribe({
+      next:(res) => this.listBook = res,
+      error:(err) => this.notiService.showAlertError(err.message)
+    });
+  }
+  deleteBook(book: Book){
+    this.isLoad = true;
+    this.listBook = this.listBook.filter( b => b.id != book.id);
+    this.bookService.deleteBook(book.id).subscribe({
       next:(res) => {
         this.notiService.showAlertSuccess(res.message);
         this.isLoad = false;
       },
       error:(err) => {
-        this.notiService.showAlertError(err.error.message);
+        this.notiService.showAlertError(err.message);
         this.isLoad = false;
       }
     })
   }
-  deleteBook(book: Book){
-    if(!book.id) return
-    this.listBook = this.listBook.filter( b => b.id != book.id);
-    this.bookService.deleteBook(book.id).subscribe({
-      next:(res) => this.notiService.showAlertSuccess(res.message),
-      error:(err) => this.notiService.showAlertError(err.error.message)
-    });
+  editBook(book: Book){
+    this.formBook.patchValue(book);
+    this.fileSelect = book.url_libro;
+    this.isEdit = true;
   }
   updateBook(book: Book){
-    if(!book.id) return
-    this.bookSelectd = book;
-    const index = this.listBook.findIndex( b => b.id == book.id);
-    const newTodo = [...this.listBook];
+    if(!book) return
+    this.isLoad = true;
+    const index = this.listBook.findIndex(b => b.id == book.id)
     this.listBook[index] = book;
-    console.log(this.bookSelectd);
+    this.bookService.updateBook(book).subscribe({
+      next:(res) => {
+        this.notiService.showAlertSuccess(res.message);
+        this.isLoad = false;
+      },
+      error:(err) => {
+        console.log(err);
+        this.notiService.showAlertError(err.message);
+        this.isLoad = false;
+      }
+    });
   }
 
 }

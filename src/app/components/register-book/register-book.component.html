@@ -12,7 +12,10 @@
                         <input formControlName="autor" type="text" class="form-control" id="autor">
                     </div>
                     <div class="col-12 col-md-6">
-                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <span *ngIf="isEdit">Actualiar</span>
+                            <span *ngIf="!isEdit">Registrar</span>
+                        </button>
                     </div>
                 </div>
             </div>

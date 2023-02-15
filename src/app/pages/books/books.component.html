@@ -1,17 +1,99 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-12 col-md-6">
-            <app-register-book 
-            (data) = "registerBook($event)"
-            [bookSelected]="bookSelectd"
-            ></app-register-book>
+            <div class="row p-3">
+                <div class="col-12">
+                    <div class="row mb-3">
+                        <h3>Formulario de registro</h3>
+                    </div>
+                    <form [formGroup]="formBook" (ngSubmit)="registerBook()"
+                        class="row border rounded px-2 py-4 shadow responsiveY-min-300">
+                        <div class="col-12 col-md-7">
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <label for="titulo" class="form-label">Título</label>
+                                    <input formControlName="titulo" type="text" class="form-control" id="titulo">
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label for="autor" class="form-label">Autor</label>
+                                    <input formControlName="autor" type="text" class="form-control" id="autor">
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span *ngIf="isEdit">Actualiar</span>
+                                        <span *ngIf="!isEdit">Registrar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <div class="row h-100">
+                                <label (click)="imageInput.click()" class="form-label">Imagen de libro</label>
+                                <div class="col-12 mb-2 d-flex justify-content-center align-items-center flex-column">
+                                    <input class="d-none" #imageInput type="file" accept="image/*"
+                                        (change)="obtenerImagen($event)" placeholder="foto" />
+                                    <img style="border-radius: 100%; max-width:8rem; max-height: 8rem; overflow: hidden; margin-bottom: 15px;"
+                                        (click)="imageInput.click()"
+                                        [src]="fileSelect|| '../../../assets/images/no_image.png'" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
         </div>
         <div class="col-12 col-md-6">
-            <app-list-book 
-            [listBook]="listBook" 
-            (_deleteBook)="deleteBook($event)"
-            (_updateBook)="updateBook($event)"
-            ></app-list-book>
+            <div class="row p-3">
+                <div class="col-12">
+
+                    <div class="row mb-3">
+                        <div class="col-9">
+                            <input class="form-control" type="search" autocomplete="off" [(ngModel)]="nombreFilter"
+                                name="nombreFilter" placeholder="Buscar por nombres..." />
+                        </div>
+                        <div class="col-3">
+                            <button class="btn btn-primary" type="submit">Filtro</button>
+                        </div>
+
+                    </div>
+                    <div class="table-responsive responsiveY-max-300">
+                        <table class="table table-hover border rounded shadow">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Autor</th>
+                                    <th>Imagen</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let b of listBook | filterName : nombreFilter : 'autor'">
+                                    <td>
+                                        <label>{{b.titulo}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{b.autor}}</label>
+                                    </td>
+                                    <td>
+                                        <img class="rounded" width="50" [src]="b.url_libro" alt="">
+                                    </td>
+                                    <td class="d-flex justify-content-evenly">
+                                        <i style="font-size: 20px;" class="bi bi-trash3 p-3 pointer text-danger"
+                                            (click)="deleteBook(b)"></i>
+                                        <i style="font-size: 20px;" class="bi bi-pencil-square p-3 pointer text-primary"
+                                            (click)="editBook(b)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
         </div>
     </div>
     <div *ngIf="isLoad">
