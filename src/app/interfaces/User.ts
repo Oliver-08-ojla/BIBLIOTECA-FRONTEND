@@ -1,9 +1,12 @@
-import { Auth } from "./Auth";
+import { Auth, Rol } from "./Auth";
 
 export interface User{
     nombre: string;
     apellido: string;
     cedula: string;
-    auth: Auth;
+    correo: string;
+    password: string;
     rol_id?: string;
+    rol: Rol
 }
+

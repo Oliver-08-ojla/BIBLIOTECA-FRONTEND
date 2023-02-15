@@ -12,6 +12,7 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterNamePipe } from '../pipes/filter-name.pipe';
 import { ClientsComponent } from './clients/clients.component';
+import { SectionBookComponent } from './section-book/section-book.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ClientsComponent } from './clients/clients.component';
     HomeComponent,
     NotFoundPageComponent,
     ClientsComponent,
+    SectionBookComponent,
   ],
   imports: [
     CommonModule,

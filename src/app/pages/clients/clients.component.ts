@@ -61,7 +61,6 @@ export class ClientsComponent implements OnInit {
   getClients(){
     this.clientService.getClients().subscribe({
       next:(res) => {
-        console.log(res);
         this.listClients = res;
       },
       error:(err) => {

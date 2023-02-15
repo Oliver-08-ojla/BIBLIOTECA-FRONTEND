@@ -4,6 +4,7 @@ import { BooksComponent } from './books/books.component';
 import { ClientsComponent } from './clients/clients.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { SectionBookComponent } from './section-book/section-book.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent},
       { path: 'books', component: BooksComponent},
       { path: 'clients', component: ClientsComponent},
+      { path: 'section-book', component: SectionBookComponent},
     ]
   },
 

@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
       next: (res: ResAuth) => {
         this.isLoad = false;
         if (!res.access_token) return this.notifyService.showAlertError(res.message);
+        this.autService.saveToken(res);
         this.route.navigate(['/home']);
         this.notifyService.showAlertSuccess(res.message);
       },
