@@ -1,0 +1,101 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <div class="row p-3">
+                <div class="col-12">
+                    <form [formGroup]="formClient" class="row border rounded px-2 py-4 shadow responsiveY-min-300">
+                        <div class="mb-2 col-12 col-md-6">
+                            <label for="nombre" class="col-form-label">Nombre</label>
+                            <input id="nombre" formControlName="nombre" type="text" class="form-control">
+                        </div>
+                        <div class="mb-2 col-12 col-md-6">
+                            <label for="apellido" class="col-form-label">Apellido</label>
+                            <input id="apellido" formControlName="apellido" type="text" class="form-control">
+                        </div>
+                        <div class="mb-2 col-12 col-md-6">
+                            <label for="cedula" class="col-form-label">Cedula</label>
+                            <input id="cedula" formControlName="cedula" type="text" class="form-control">
+                        </div>
+                        <div class="mb-2 col-12 col-md-6">
+                            <label for="correo" class="col-form-label">Correo</label>
+                            <input id="correo" formControlName="correo" type="text" class="form-control">
+                        </div>
+                        <div class="mb-4 col-12 col-md-6">
+                            <label for="telefono" class="col-form-label">Teléfono</label>
+                            <input id="telefono" formControlName="telefono" type="number" class="form-control">
+                        </div>
+                        <div class="mb-2 col-12">
+                            <div class="row">
+                                <div class="col-12 col-md-auto">
+                                    <button class="btn btn-primary" (click)="register()">
+                                        <span *ngIf="isEdit">Actualizar</span>
+                                        <span *ngIf="!isEdit">Registrar</span>
+                                    </button>
+                                </div>
+                                <div *ngIf="isEdit" class="col-12 col-md-auto">
+                                    <button class="btn btn-danger" (click)="cancel()">
+                                        <span>Cancelar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="isEdit" class="mb-2 col-12 col-md-6">
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <input class="form-control" type="search" autocomplete="off" [(ngModel)]="nombreFilter"
+                        name="nombreFilter" placeholder="Buscar por nombres..." />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 border rounded">
+                    <div class="table-responsive responsiveY-max-300">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Correo</th>
+                                    <th>Teléfono</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of listClients | filterName : nombreFilter : 'nombre'">
+                                    <td>
+                                        <label>{{c.nombre}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{c.apellido}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{c.correo}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{c.telefono}}</label>
+                                    </td>
+                                    <td>
+                                        <i style="font-size: 20px;" class="bi bi-trash3 p-3 pointer text-danger"
+                                            (click)="deleteClient(c)"></i>
+                                        <i style="font-size: 20px;" class="bi bi-pencil-square p-3 pointer text-primary"
+                                            (click)="editClient(c)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoad">
+        <app-loading></app-loading>
+    </div>
+
+</div>

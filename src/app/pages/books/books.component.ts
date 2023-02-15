@@ -62,6 +62,7 @@ export class BooksComponent implements OnInit {
           this.notiService.showAlertSuccess(res.message);
           this.isLoad = false;
           this.formBook.reset();
+          this.fileSelect = "";
         },
         error:(err) => {
           this.notiService.showAlertError(err.message);
@@ -104,6 +105,8 @@ export class BooksComponent implements OnInit {
       next:(res) => {
         this.notiService.showAlertSuccess(res.message);
         this.isLoad = false;
+        this.formBook.reset();
+        this.fileSelect = "";
       },
       error:(err) => {
         console.log(err);

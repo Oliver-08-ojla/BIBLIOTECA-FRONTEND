@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilterNamePipe } from '../pipes/filter-name.pipe';
+import { ClientsComponent } from './clients/clients.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { FilterNamePipe } from '../pipes/filter-name.pipe';
     RegisterComponent,
     HomeComponent,
     NotFoundPageComponent,
+    ClientsComponent,
   ],
   imports: [
     CommonModule,

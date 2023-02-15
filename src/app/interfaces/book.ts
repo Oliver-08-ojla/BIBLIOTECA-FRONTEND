@@ -5,5 +5,4 @@ export interface Book {
     image: File;
     url_libro: string;
     image_id: string;
-    isUpdate: boolean;
 }
