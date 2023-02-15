@@ -9,3 +9,6 @@
     max-height: 300px;
     overflow-y: scroll;
 }
+.img{
+    width: 100%;
+}

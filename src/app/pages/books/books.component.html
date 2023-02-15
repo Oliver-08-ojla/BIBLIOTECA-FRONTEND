@@ -53,7 +53,7 @@
                 <div class="row mb-3">
                     <div class="col-12">
                         <input class="form-control" type="search" autocomplete="off" [(ngModel)]="nombreFilter"
-                            name="nombreFilter" placeholder="Buscar por autor..." />
+                            name="nombreFilter" placeholder="Buscar por autor o título..." />
                     </div>
                 </div>
                 <div class="row border rounded shadow">
@@ -68,7 +68,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let b of listBook | filterName : nombreFilter : 'autor'">
+                                <tr *ngFor="let b of listBook | filterBook : nombreFilter : 'autor' : 'titulo'">
                                     <td>
                                         <label>{{b.titulo}}</label>
                                     </td>

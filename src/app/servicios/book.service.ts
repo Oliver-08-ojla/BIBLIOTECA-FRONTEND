@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Book } from '../interfaces/book';
+import { Lend } from '../interfaces/Lend';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class BookService {
   }
   updateBook(book: Book):Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/libros/${book.id}`,book);
+  }
+
+  bookLend(id: number):Observable<Lend[]>{
+    return this.http.get<Lend[]>(`${environment.apiUrl}/prestamos/libros/user/${id}`);
   }
 
 }

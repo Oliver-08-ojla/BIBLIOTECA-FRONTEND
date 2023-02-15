@@ -1,1 +1,58 @@
-<p>section-book works!</p>
+<div class="container py-5">
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <input class="form-control" type="search" autocomplete="off" [(ngModel)]="nombreFilter" name="nombreFilter"
+                placeholder="Buscar por autor o título..." />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-3" *ngFor="let b of listBook | filterBook : nombreFilter : 'autor': 'titulo'">
+            <div class="card">
+                <img [src]="b.url_libro" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{b.titulo}}</h5>
+                    <p class="card-text">Autor: {{b.autor}}</p>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" (click)="lendBook(b)">Prestar liro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalPrestamo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalPrestamo">Ingresa la fecha de prestamo y devolución</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formLend" class="row border rounded px-2 py-4 shadow">
+                    <div class="col-12 col-md-7">
+                        <div class="row">
+                            <div class="col-12 mb-2">
+                                <label for="fechaPrestamo" class="form-label">Fecha de prestamos</label>
+                                <input formControlName="fechaPrestamo" type="date" class="form-control" id="fechaPrestamo">
+                            </div>
+                            <div class="col-12 mb-2">
+                                <label for="fechaDevolucion" class="form-label">Fecha de devolución</label>
+                                <input formControlName="fechaDevolucion" type="date" class="form-control" id="fechaDevolucion">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" (click)="register()" data-bs-dismiss="modal">Registrar prestamo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="isLoad">
+    <app-loading></app-loading>
+</div>

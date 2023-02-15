@@ -6,3 +6,4 @@ export interface Book {
     url_libro: string;
     image_id: string;
 }
+

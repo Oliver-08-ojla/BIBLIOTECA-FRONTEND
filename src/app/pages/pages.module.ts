@@ -10,9 +10,10 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FilterNamePipe } from '../pipes/filter-name.pipe';
 import { ClientsComponent } from './clients/clients.component';
 import { SectionBookComponent } from './section-book/section-book.component';
+import { FilterClientPipe } from '../pipes/filter-client.pipe';
+import { FilterBookPipe } from '../pipes/filter-book.pipe';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SectionBookComponent } from './section-book/section-book.component';
     ComponentsModule,
     ReactiveFormsModule,
     FormsModule,
-    FilterNamePipe
+    FilterClientPipe,
+    FilterBookPipe
   ]
-})
+  })
 export class PagesModule { }

@@ -67,7 +67,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let c of listClients | filterName : nombreFilter : 'nombre'">
+                                <tr *ngFor="let c of listClients | filterClient: nombreFilter : 'nombre'">
                                     <td>
                                         <label>{{c.nombre}}</label>
                                     </td>
