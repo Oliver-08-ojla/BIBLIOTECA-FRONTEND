@@ -27,10 +27,6 @@ export class BookService {
     return this.http.delete<any>(`${environment.apiUrl}/libros/${id}`);
   }
   updateBook(book: Book):Observable<any> {
-    const data = new FormData();
-    data.append('titulo', book.titulo);
-    data.append('autor', book.autor);
-    data.append('image', book.image);
     return this.http.put<any>(`${environment.apiUrl}/libros/${book.id}`,book);
   }
 

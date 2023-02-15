@@ -98,6 +98,8 @@ export class ClientsComponent implements OnInit {
       next:(res) => {
         this.notiService.showAlertSuccess(res.message);
         this.isLoad = false;
+        this.formClient.reset();
+        this.isEdit = false;
       },
       error:(err) => {
         this.notiService.showAlertError(err.error.message);
@@ -108,5 +110,7 @@ export class ClientsComponent implements OnInit {
   cancel(){
     this.formClient.reset();
     this.isEdit = false;
+    this.isLoad = false;
+    this.formClient.reset();
   }
 }

@@ -84,6 +84,7 @@ export class BooksComponent implements OnInit {
       next:(res) => {
         this.notiService.showAlertSuccess(res.message);
         this.isLoad = false;
+        this.fileSelect = "";
       },
       error:(err) => {
         this.notiService.showAlertError(err.message);
@@ -97,7 +98,7 @@ export class BooksComponent implements OnInit {
     this.isEdit = true;
   }
   updateBook(book: Book){
-    if(!book) return
+    if(!book.id) return
     this.isLoad = true;
     const index = this.listBook.findIndex(b => b.id == book.id)
     this.listBook[index] = book;
@@ -114,6 +115,12 @@ export class BooksComponent implements OnInit {
         this.isLoad = false;
       }
     });
+  }
+  cancel(){
+    this.formBook.reset();
+    this.isLoad = false;
+    this.isEdit = false;
+    this.fileSelect = "";
   }
 
 }
