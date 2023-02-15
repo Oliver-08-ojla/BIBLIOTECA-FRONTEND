@@ -1,0 +1,20 @@
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <app-register-book 
+            (data) = "registerBook($event)"
+            [bookSelected]="bookSelectd"
+            ></app-register-book>
+        </div>
+        <div class="col-12 col-md-6">
+            <app-list-book 
+            [listBook]="listBook" 
+            (_deleteBook)="deleteBook($event)"
+            (_updateBook)="updateBook($event)"
+            ></app-list-book>
+        </div>
+    </div>
+    <div *ngIf="isLoad">
+        <app-loading></app-loading>
+    </div>
+</div>
