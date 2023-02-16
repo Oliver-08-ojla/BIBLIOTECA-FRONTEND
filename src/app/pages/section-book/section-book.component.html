@@ -1,25 +1,36 @@
 <div class="container py-5">
 
     <div class="row mb-3">
-        <div class="col-12">
+        <div class="col-12 p-0">
             <input class="form-control" type="search" autocomplete="off" [(ngModel)]="nombreFilter" name="nombreFilter"
                 placeholder="Buscar por autor o título..." />
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-3" *ngFor="let b of listBook | filterBook : nombreFilter : 'autor': 'titulo'">
-            <div class="card">
-                <img [src]="b.url_libro" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{b.titulo}}</h5>
-                    <p class="card-text">Autor: {{b.autor}}</p>
+    <div class="row mb-4 border p-2 rounded" *ngFor="let l of listBook | filterBook : nombreFilter : 'autor' : 'titulo'; index as i">
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div class="col-12">
+                    <b>Título: </b>{{l.titulo}}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <b>Autor: </b>{{l.autor}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" (click)="lendBook(b)">Prestar liro</button>
+                            data-bs-target="#exampleModal" (click)="lendBook(l)">Prestar liro</button>
                 </div>
             </div>
         </div>
+        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+            <img class="rounded" width="150" [src]="l.url_libro" alt="">
+        </div>
     </div>
 </div>
+
 
 
 

@@ -1,14 +1,11 @@
 .pointer{
     cursor: pointer;
 }
-.responsiveY-min-300{
-    min-height: 300px;
-    overflow-y: scroll;
-}
-.responsiveY-max-300{
-    max-height: 300px;
+
+.responsiveY-max-400{
+    max-height: 400px;
     overflow-y: scroll;
 }
 .img{
-    width: 100%;
+    max-width: 100%;
 }

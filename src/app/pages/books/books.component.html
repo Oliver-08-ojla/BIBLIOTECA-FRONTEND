@@ -4,19 +4,21 @@
             <div class="row p-3">
                 <div class="col-12">
                     <form [formGroup]="formBook" (ngSubmit)="registerBook()"
-                        class="row border rounded px-2 py-4 shadow responsiveY-min-300">
-                        <div class="col-12 col-md-5">
-                            <div class="row h-100">
-                                <div class="col-12 mb-2 d-flex justify-content-center align-items-center flex-column">
-                                    <input class="d-none" #imageInput type="file" accept="image/*"
-                                        (change)="obtenerImagen($event)" placeholder="foto" />
-                                    <img style="border-radius: 100%; max-width:8rem; max-height: 8rem; overflow: hidden; margin-bottom: 15px;"
-                                        (click)="imageInput.click()"
-                                        [src]="fileSelect|| '../../../assets/images/no_image.png'" alt="">
+                        class="row border rounded px-2 py-4 shadow" style="height: 450px;">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row h-100">
+                                    <div class="col-12 mb-2 d-flex justify-content-center align-items-center flex-column">
+                                        <input class="d-none" #imageInput type="file" accept="image/*"
+                                            (change)="obtenerImagen($event)" placeholder="foto" />
+                                        <img width="100" class="img"
+                                            (click)="imageInput.click()"
+                                            [src]="fileSelect|| '../../../assets/images/no_image.png'" alt="">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-7">
+                        <div class="col-12">
                             <div class="row">
                                 <div class="col-12 mb-2">
                                     <label for="titulo" class="form-label">Título</label>
@@ -43,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>
@@ -56,37 +58,35 @@
                             name="nombreFilter" placeholder="Buscar por autor o título..." />
                     </div>
                 </div>
-                <div class="row border rounded shadow">
-                    <div class="table-responsive responsiveY-max-300">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Título</th>
-                                    <th>Autor</th>
-                                    <th>Imagen</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let b of listBook | filterBook : nombreFilter : 'autor' : 'titulo'">
-                                    <td>
-                                        <label>{{b.titulo}}</label>
-                                    </td>
-                                    <td>
-                                        <label>{{b.autor}}</label>
-                                    </td>
-                                    <td>
-                                        <img class="rounded" width="30" [src]="b.url_libro" alt="">
-                                    </td>
-                                    <td>
-                                        <i style="font-size: 20px;" class="bi bi-trash3 p-3 pointer text-danger"
-                                            (click)="deleteBook(b)"></i>
-                                        <i style="font-size: 20px;" class="bi bi-pencil-square p-3 pointer text-primary"
-                                            (click)="editBook(b)"></i>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="responsiveY-max-400">
+                    <div class="row mb-4 border p-2 rounded"
+                        *ngFor="let l of listBook | filterBook : nombreFilter : 'autor' : 'titulo'; index as i">
+                        <div class="col-12 col-md-6">
+                            <div class="row">
+                                <div class="col-12">
+                                    <b>Título: </b>{{l.titulo}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <b>Autor: </b>{{l.autor}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <i style="font-size: 20px;" class="bi bi-pencil-square pointer text-primary"
+                                        (click)="editBook(l)"></i>
+                                </div>
+                                <div class="col-auto">
+                                    <i style="font-size: 20px;" class="bi bi-trash3 pointer text-danger"
+                                        (click)="deleteBook(l)"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                            <img class="rounded" width="150" height="150" [src]="l.url_libro" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
