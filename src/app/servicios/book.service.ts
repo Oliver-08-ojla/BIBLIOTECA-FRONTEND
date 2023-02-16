@@ -31,8 +31,11 @@ export class BookService {
     return this.http.put<any>(`${environment.apiUrl}/libros/${book.id}`,book);
   }
 
-  bookLend(id: number):Observable<Lend[]>{
+  getBookLend(id: number):Observable<Lend[]>{
     return this.http.get<Lend[]>(`${environment.apiUrl}/prestamos/libros/user/${id}`);
+  }
+  getBooksLendAll():Observable<Lend[]>{
+    return this.http.get<Lend[]>(`${environment.apiUrl}/prestamos/libros/admin`);
   }
 
 }
