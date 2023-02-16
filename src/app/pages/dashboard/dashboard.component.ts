@@ -22,7 +22,6 @@ export class DashboardComponent implements OnInit {
     this.bookService.bookLend(1).subscribe({
       next:(res)=>{
         this.bookLend = res;
-        console.log(this.bookLend);
       },
       error:(err) => {
         console.log(err);
