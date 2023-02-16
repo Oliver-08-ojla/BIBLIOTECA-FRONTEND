@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Lend } from 'src/app/interfaces/Lend';
+import { AutentificacionService } from 'src/app/servicios/autentificacion.service';
 import { BookService } from 'src/app/servicios/book.service';
 
 @Component({
@@ -12,14 +13,16 @@ export class DashboardComponent implements OnInit {
   bookLend:Lend[] = [];
 
   constructor(
-    private bookService: BookService
+    private bookService: BookService,
+    private authService: AutentificacionService
   ) { }
 
   ngOnInit(): void {
     this.getBookLend()
   }
   getBookLend(){
-    this.bookService.bookLend(1).subscribe({
+    const user = this.authService.getUser();
+    this.bookService.bookLend(user.id).subscribe({
       next:(res)=>{
         this.bookLend = res;
       },

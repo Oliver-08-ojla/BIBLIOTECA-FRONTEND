@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
     this.autService.register(this.fr.value).subscribe({
       next:(res) => {
         this.notifyService.showAlertSuccess(res.message);
-        this.route.navigate(['/home']);       
+        this.route.navigate(['/login']);       
       },
       error:(err) => {
         this.notifyService.showAlertError(err.message);
