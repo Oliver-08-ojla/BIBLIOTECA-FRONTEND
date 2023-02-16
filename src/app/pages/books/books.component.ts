@@ -64,7 +64,7 @@ export class BooksComponent implements OnInit {
           this.formBook.reset();
           this.fileSelect = "";
         },
-        error:(err) => {
+        error:(err) => {          
           this.notiService.showAlertError(err.message);
           this.isLoad = false;
         }

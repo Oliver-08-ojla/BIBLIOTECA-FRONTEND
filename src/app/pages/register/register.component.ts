@@ -43,6 +43,8 @@ export class RegisterComponent implements OnInit {
       },
       error:(err) => {
         this.notifyService.showAlertError(err.message);
+
+        console.log(err);
       }
     })
   }

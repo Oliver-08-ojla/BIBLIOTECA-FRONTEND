@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn btn-primary">Devolver</button>
+                        <button class="btn btn-primary" (click)="devolverLibro(l)">Devolver</button>
                     </div>
                 </div>
             </div>
@@ -46,10 +46,18 @@
         <div class="col-12 mb-3">
             <h3>libros prestados</h3>
         </div>
-        <div class="col-12 col-md-4" *ngFor="let l of listBookLendAll; index as i">
+        <div class="col-12 col-md-6" *ngFor="let l of listBookLendAll; index as i">
 
             <div class="row border p-2">
                 <div class="col-12 col-md-7">
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <b>Prestado por: </b>{{l.usuario.nombre}}
+                        </div>
+                        <div class="col-12">
+                            <b>Email: </b>{{l.usuario.correo}}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <b>Fecha de prestamo: </b>{{l.fechaPrestamo}}
@@ -70,13 +78,9 @@
                     <img class="rounded" width="100" [src]="l.libro.url_libro" alt="">
                 </div>
             </div>
-
-            
-
-
-
-
         </div>
     </div>
-
+</div>
+<div *ngIf="isLoad">
+    <app-loading></app-loading>
 </div>

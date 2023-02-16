@@ -3,6 +3,7 @@ import { Rol } from 'src/app/interfaces/Auth';
 import { Lend } from 'src/app/interfaces/Lend';
 import { AutentificacionService } from 'src/app/servicios/autentificacion.service';
 import { BookService } from 'src/app/servicios/book.service';
+import { NotificationsService } from 'src/app/servicios/notifications.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,10 +14,12 @@ export class DashboardComponent implements OnInit {
 
   bookLend:Lend[] = [];
   listBookLendAll: Lend[] = [];
+  isLoad: boolean = false;
 
   constructor(
     private bookService: BookService,
-    private authService: AutentificacionService
+    private authService: AutentificacionService,
+    private notiService: NotificationsService,
   ) { }
 
   rol!: string;
@@ -45,7 +48,23 @@ export class DashboardComponent implements OnInit {
       error:(err) => {
         console.log(err);
       }
-    })
+    });
   }
 
+  devolverLibro(lend : Lend){
+    this.isLoad = true;
+    this.listBookLendAll = this.listBookLendAll.filter(l => l.id != lend.id);
+    this.bookLend = this.bookLend.filter(l => l.id != lend.id);
+    this.bookService.devolverLibro(lend).subscribe({
+      next:(res)=>{
+        this.notiService.showAlertSuccess(res.message);
+        console.log(res);
+        this.isLoad = false;
+      },
+      error:(err) => {
+        console.log(err);
+        this.isLoad = false;
+      }
+    });
+  }
 }
